@@ -1,0 +1,90 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'io.qameta.allure'
+
+group 'my.antonov'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+configurations {
+    agent
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+    agent 'org.aspectj:aspectjweaver:1.8.0'
+
+    compile 'com.codeborne:selenide:5.8.0'
+    compile 'junit:junit:4.13'
+    compile 'io.qameta.allure:allure-cucumber4-jvm:2.12.1'
+    compile 'io.github.bonigarcia:webdrivermanager:3.6.1'
+    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+
+    testCompile 'org.slf4j:slf4j-simple:1.7.30'
+    testCompile 'io.cucumber:cucumber-java:4.3.1'
+    testCompile 'io.cucumber:cucumber-core:4.3.1'
+    testCompile 'io.cucumber:cucumber-junit:4.3.1'
+    testCompile 'io.cucumber:cucumber-spring:4.3.1'
+    testCompile 'org.springframework:spring-context:5.1.4.RELEASE'
+    testCompile 'org.springframework:spring-test:5.1.4.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot:2.2.1.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.2.1.RELEASE'
+    testCompileOnly 'org.projectlombok:lombok:1.18.2'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.2'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE",
+                "io.qameta.allure:allure-gradle:2.7.0"
+    }
+}
+ext {
+    defaultEncoding = 'UTF-8'
+}
+
+compileJava {
+    options.encoding = defaultEncoding
+    options.compilerArgs = ['-parameters', '-Xlint:unchecked']
+}
+
+compileTestJava {
+    options.encoding = defaultEncoding
+    options.compilerArgs = ['-parameters', '-Xlint:unchecked']
+}
+
+
+
+test {
+    testLogging.showStandardStreams = true
+    doFirst {
+        jvmArgs "-javaagent:${configurations.agent.singleFile}"
+    }
+    systemProperties = [
+            'file.encoding': 'UTF-8'
+    ]
+}
+
+allure {
+    version = '2.6.0'
+    aspectjweaver = true
+}
