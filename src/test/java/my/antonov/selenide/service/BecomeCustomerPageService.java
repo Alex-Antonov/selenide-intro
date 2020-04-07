@@ -1,32 +1,32 @@
 package my.antonov.selenide.service;
 
-import my.antonov.selenide.pages.BaseBCSPage;
+import my.antonov.selenide.pages.BecomeCustomerPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Сервис для главной страницы,
+ * Сервис для Стать клиентом страницы,
  * где нужно реализовывать все
  * кейсы только для главной страницы
  */
-@Service("Главная страница")
-public class BaseBCSPageService extends CommonService {
+@Service("Стать клиентом")
+public class BecomeCustomerPageService extends CommonService {
 
     @Autowired
-    private BaseBCSPage baseBCSPage;
+    private BecomeCustomerPage becomeCustomerPage;
 
     @Override
     public void checkTitle(String title) {
-        isElementDisplayed(baseBCSPage.getTitle(title));
+        isElementDisplayed(becomeCustomerPage.getTitle(title));
     }
 
     @Override
     public void clickButton(String buttonName) {
-        clickButton(baseBCSPage.getButton(buttonName));
+        clickButton(becomeCustomerPage.getButton(buttonName));
     }
 
     @Override
     public void fillInputText(String fieldName, String text) {
-
+        inputText(becomeCustomerPage.getTextInput(fieldName), text);
     }
 }

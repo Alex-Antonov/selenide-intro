@@ -1,28 +1,28 @@
 package my.antonov.selenide.service;
 
-import my.antonov.selenide.pages.BaseBCSPage;
+import my.antonov.selenide.pages.AboutCompanyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * Сервис для главной страницы,
  * где нужно реализовывать все
- * кейсы только для главной страницы
+ * кейсы только для страницы О компании
  */
-@Service("Главная страница")
-public class BaseBCSPageService extends CommonService {
+@Service("О компании")
+public class AboutCompanyPageService extends CommonService {
 
     @Autowired
-    private BaseBCSPage baseBCSPage;
+    private AboutCompanyPage aboutCompanyPage;
 
     @Override
     public void checkTitle(String title) {
-        isElementDisplayed(baseBCSPage.getTitle(title));
+        isElementDisplayed(aboutCompanyPage.getTitle(title));
     }
 
     @Override
     public void clickButton(String buttonName) {
-        clickButton(baseBCSPage.getButton(buttonName));
+
     }
 
     @Override
