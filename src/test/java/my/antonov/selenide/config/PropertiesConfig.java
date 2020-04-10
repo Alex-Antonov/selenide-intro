@@ -14,4 +14,11 @@ public class PropertiesConfig {
 
     @Value("${app.url}")
     private String url;
+
+    @Value("${app.login}")
+    private String login;
+
+    @Value("${app.password}")
+    private String password;
+
 }

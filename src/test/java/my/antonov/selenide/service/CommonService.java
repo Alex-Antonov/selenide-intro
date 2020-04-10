@@ -1,18 +1,14 @@
 package my.antonov.selenide.service;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 import org.springframework.stereotype.Service;
 
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$;
 
-/**
- * Базовый сервис, где будет реализация всех
- * базовых действия над WebElement-ами:
- * ввод текста, нажатие, проверка отображения и т.п.
- * Также набор абстрактных методов, которые следует
- * реализовать для каждого отдельного сервиса закрепленным
- * за своим PageObject
- */
 @Service
 public abstract class CommonService {
 
@@ -32,9 +28,19 @@ public abstract class CommonService {
         element.shouldBe(Condition.visible);
     }
 
+    protected void setCheckBox(SelenideElement element, boolean value){
+        element.setSelected(value);
+    }
+
+    public void isTextVisible(String text) {
+        isElementDisplayed($(byText(text)));
+    }
+
     public abstract void checkTitle(String title);
 
     public abstract void clickButton(String buttonName);
 
     public abstract void fillInputText(String fieldName, String text);
+
+    public abstract void setCheckBox(String checkBoxName, boolean value);
 }
