@@ -4,13 +4,16 @@ import cucumber.api.java.ru.Дано;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Пусть;
 import cucumber.api.java.ru.Тогда;
+import lombok.extern.slf4j.Slf4j;
 import my.antonov.selenide.config.PropertiesConfig;
 import my.antonov.selenide.service.CommonService;
+import my.antonov.selenide.utils.TestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import static com.codeborne.selenide.Selenide.switchTo;
 
+@Slf4j
 public class CommonStepDefinition {
 
     @Autowired
@@ -18,6 +21,9 @@ public class CommonStepDefinition {
 
     @Autowired
     private PropertiesConfig propertiesConfig;
+
+    @Autowired
+    private TestContext testContext;
 
     private CommonService commonService;
 
@@ -61,5 +67,16 @@ public class CommonStepDefinition {
     @Тогда("пользователь видит текст {string}")
     public void isTextVisible(String text) {
         commonService.isTextVisible(text);
+    }
+
+    @Тогда("пользователь запоминает {string} равное {string}")
+    public void setTestContext(String key, String value) {
+        testContext.setContext(key, value);
+    }
+
+    @Тогда("пользователь запоминает значение в поле {string} с ключем {string}")
+    public void setTestContextFromField(String fieldName, String key) {
+        String value = commonService.getTextFromElement(fieldName);
+        testContext.setContext(key, value);
     }
 }

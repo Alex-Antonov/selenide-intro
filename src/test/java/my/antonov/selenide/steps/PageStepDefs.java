@@ -1,11 +1,3 @@
-/**
- * Базовый StepDef для всех остальных
- * Перед выполнением каждого сценария
- * будет производится автоматический
- * переход на главную страницу
- * В конце каждого сценария чистит
- * кэш браузера
- */
 package my.antonov.selenide.steps;
 
 import com.codeborne.selenide.WebDriverRunner;
@@ -13,6 +5,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import my.antonov.selenide.config.PropertiesConfig;
 import my.antonov.selenide.config.WebdriverBeanConfig;
+import my.antonov.selenide.utils.TestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -23,6 +16,9 @@ public class PageStepDefs {
 
     @Autowired
     private PropertiesConfig config;
+
+    @Autowired
+    private TestContext testContext;
 
     public PageStepDefs() {
 
@@ -37,5 +33,6 @@ public class PageStepDefs {
     @After
     public void after() {
         WebDriverRunner.clearBrowserCache();
+        testContext.cleanContext();
     }
 }

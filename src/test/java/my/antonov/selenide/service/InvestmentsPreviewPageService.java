@@ -8,25 +8,8 @@ import org.springframework.stereotype.Service;
 public class InvestmentsPreviewPageService extends CommonService {
 
     @Autowired
-    private InvestmentsPreviewPage investmentsPreviewPage;
-
-    @Override
-    public void checkTitle(String title) {
-        isElementDisplayed(investmentsPreviewPage.getTitle(title));
+    public InvestmentsPreviewPageService(InvestmentsPreviewPage page) {
+        super(page);
     }
 
-    @Override
-    public void clickButton(String buttonName) {
-        clickButton(investmentsPreviewPage.getButton(buttonName));
-    }
-
-    @Override
-    public void fillInputText(String fieldName, String text) {
-
-    }
-
-    @Override
-    public void setCheckBox(String checkBoxName, boolean value) {
-
-    }
 }
