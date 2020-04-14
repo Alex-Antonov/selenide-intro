@@ -12,6 +12,7 @@ public class AuthorizationDialog extends Page {
         titleXPaths.add("//div[contains(text(),'" + FIELD_NAME + "')]");
 
         inputXPaths.add("//span[contains(text(),'" + FIELD_NAME + "')]/following-sibling::input");
+        inputXPaths.add("//input[@placeholder='"+ FIELD_NAME +"']");
 
         checkBoxXPaths.add("//span[contains(text(), '" + FIELD_NAME + "')]/preceding-sibling::input[@type='checkbox']");
     }
