@@ -1,5 +1,6 @@
 package my.antonov.selenide.steps;
 
+import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Тогда;
 import lombok.extern.slf4j.Slf4j;
 import my.antonov.selenide.service.InvestmentsPortfolioPageService;
@@ -28,4 +29,10 @@ public class InvestmentsPortfolioPageStepDefinition {
         log.info("Assert that {} = {} + {}", total, firstValue, secondValue);
         assertThat(total == (firstValue + secondValue));
     }
+
+    @Когда("пользователь нажимает кнопку {string} на элементе {string}")
+    public void clickButtonOnElement(String buttonName, String elementName) {
+        investmentsPortfolioPageService.clickButtonOnElement(buttonName, elementName);
+    }
+
 }

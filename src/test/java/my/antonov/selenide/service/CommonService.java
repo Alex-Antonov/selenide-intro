@@ -12,23 +12,23 @@ public class CommonService {
         this.page = page;
     }
 
-    private String getText(SelenideElement element) {
+    protected String getText(SelenideElement element) {
         return element.getText();
     }
 
-    private void clickButton(SelenideElement button){
+    protected void clickButton(SelenideElement button){
         button.click();
     }
 
-    private void inputText(SelenideElement field, String text){
+    protected void inputText(SelenideElement field, String text){
         field.val(text);
     }
 
-    private void isElementDisplayed(SelenideElement element){
+    protected void isElementDisplayed(SelenideElement element){
         element.shouldBe(Condition.visible);
     }
 
-    private void setCheckBox(SelenideElement element, boolean value){
+    protected void setCheckBox(SelenideElement element, boolean value){
         element.setSelected(value);
     }
 

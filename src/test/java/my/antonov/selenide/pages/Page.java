@@ -16,15 +16,17 @@ import static com.codeborne.selenide.Selenide.$;
 public abstract class Page {
 
     protected final String FIELD_NAME = "FIELD_NAME";
+    protected final String ELEMENT_NAME = "ELEMENT_NAME";
     protected List<String> buttonXPaths = new ArrayList<>();
     protected List<String> titleXPaths = new ArrayList<>();
     protected List<String> inputXPaths = new ArrayList<>();
     protected List<String> checkBoxXPaths = new ArrayList<>();
     protected List<String> labelXPaths = new ArrayList<>();
+    protected List<String> buttonOnElementXPaths = new ArrayList<>();
 
     private List<List<String>> xPaths = new ArrayList<>(
             Arrays.asList(
-                    buttonXPaths, titleXPaths, inputXPaths, checkBoxXPaths, labelXPaths
+                    buttonXPaths, titleXPaths, inputXPaths, checkBoxXPaths, labelXPaths, buttonOnElementXPaths
             )
     );
 
@@ -74,5 +76,17 @@ public abstract class Page {
 
     public SelenideElement getElementByText(String text) {
         return $(byText(text));
+    }
+
+    public SelenideElement getButtonOnElement(String elementName, String buttonName)  {
+        for (String xpath : buttonOnElementXPaths) {
+            String xPathReadyToSearch = xpath.replace(FIELD_NAME, buttonName).replace(ELEMENT_NAME, elementName);
+            try {
+                return $(By.xpath(xPathReadyToSearch)).shouldBe(Condition.visible);
+            } catch (Throwable e) {
+                log.warn("Element not found by xpath: {}", xPathReadyToSearch);
+            }
+        }
+        throw new IllegalArgumentException("Cannot find element");
     }
 }
